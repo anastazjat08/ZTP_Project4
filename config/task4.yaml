@@ -1,0 +1,32 @@
+
+years: [2015, 2018, 2021, 2024]
+
+cities:
+  - Warszawa
+  - Katowice
+
+gios_archive_url: "https://powietrze.gios.gov.pl/pjp/archives/downloadFile/"
+gios_ids:
+  2015: "236"
+  2018: "603"
+  2021: "486"
+  2024: "582"
+gios_pm25_output_filenames:
+  2015: "2015_PM25_1g.xlsx"
+  2018: "2018_PM25_1g.xlsx"
+  2021: "2021_PM25_1g.xlsx"
+  2024: "2024_PM25_1g.xlsx"
+
+pm25:
+  limit: 15
+
+plot_titles:
+  monthly_average: "Średnie miesięczne stężenia PM2.5"
+  exceeding_days_stations: "Liczba dni przekroczeń normy PM2.5 w wybranych stacjach"
+  exceeding_days_voivodeships: "Liczba dni przekroczeń normy PM2.5 we wszystkich województwach"
+
+
+pubmed:
+  email: example@example.com
+  query: "cancer genomics"
+  max_results: 500
