@@ -1,0 +1,2 @@
+WorkflowError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 1:
+Workflow defines configfile config	ask4.yaml but it is not present or accessible (full checked path: C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\config	ask4.yaml).

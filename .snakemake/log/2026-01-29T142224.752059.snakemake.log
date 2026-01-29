@@ -1,0 +1,73 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                      count
+---------------------  -------
+all                          1
+pm25_archive_download        2
+pm25_dictionaries            1
+pm25_metadata                1
+total                        5
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 14:22:24 2026]
+localrule pm25_metadata:
+    output: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/metadata.pkl
+    jobid: 1
+    reason: Missing output files: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/metadata.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+[Thu Jan 29 14:22:29 2026]
+Finished jobid: 1 (Rule: pm25_metadata)
+1 of 5 steps (20%) done
+Execute 1 jobs...
+[Thu Jan 29 14:22:29 2026]
+localrule pm25_dictionaries:
+    input: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/metadata.pkl
+    output: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/dictionaries.pkl
+    jobid: 4
+    reason: Missing output files: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/dictionaries.pkl; Input files updated by another job: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/metadata.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+[Thu Jan 29 14:22:30 2026]
+Finished jobid: 4 (Rule: pm25_dictionaries)
+2 of 5 steps (40%) done
+Execute 1 jobs...
+[Thu Jan 29 14:22:30 2026]
+localrule pm25_archive_download:
+    output: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2021/pm25_data_2021.pkl
+    jobid: 2
+    reason: Missing output files: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2021/pm25_data_2021.pkl
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+[Thu Jan 29 14:24:52 2026]
+Finished jobid: 2 (Rule: pm25_archive_download)
+3 of 5 steps (60%) done
+Execute 1 jobs...
+[Thu Jan 29 14:24:52 2026]
+localrule pm25_archive_download:
+    output: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2024/pm25_data_2024.pkl
+    jobid: 3
+    reason: Missing output files: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2024/pm25_data_2024.pkl
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 14:26:24 2026]
+Finished jobid: 3 (Rule: pm25_archive_download)
+4 of 5 steps (80%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 14:26:24 2026]
+localrule all:
+    input: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/metadata.pkl, C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2021/pm25_data_2021.pkl, C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2024/pm25_data_2024.pkl, C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/dictionaries.pkl
+    jobid: 0
+    reason: Input files updated by another job: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/dictionaries.pkl, C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/metadata.pkl, C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2021/pm25_data_2021.pkl, C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/raw/2024/pm25_data_2024.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 14:26:24 2026]
+Finished jobid: 0 (Rule: all)
+5 of 5 steps (100%) done
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T142224.752059.snakemake.log

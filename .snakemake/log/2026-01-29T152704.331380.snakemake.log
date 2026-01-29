@@ -1,0 +1,36 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job           count
+----------  -------
+all               1
+pm25_merge        1
+total             2
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 15:27:04 2026]
+localrule pm25_merge:
+    input: data/dictionaries.pkl, data/clean/pm25_data_clean_2021.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/pm25_data_merged.pkl
+    jobid: 7
+    reason: Missing output files: data/pm25_data_merged.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 15:27:05 2026]
+Finished jobid: 7 (Rule: pm25_merge)
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 15:27:05 2026]
+localrule all:
+    input: data/metadata.pkl, data/raw/pm25_data_2021.pkl, data/raw/pm25_data_2024.pkl, data/dictionaries.pkl, data/clean/pm25_data_clean_2021.pkl, data/clean/pm25_data_clean_2024.pkl, data/pm25_data_merged.pkl
+    jobid: 0
+    reason: Input files updated by another job: data/pm25_data_merged.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 15:27:05 2026]
+Finished jobid: 0 (Rule: all)
+2 of 2 steps (100%) done
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T152704.331380.snakemake.log

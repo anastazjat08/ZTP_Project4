@@ -1,0 +1,40 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                      count
+---------------------  -------
+all                          1
+pm25_archive_download        2
+total                        3
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 13:12:05 2026]
+localrule pm25_archive_download:
+    output: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/2021/pm25_data_2021.pkl
+    jobid: 2
+    reason: Missing output files: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/2021/pm25_data_2021.pkl
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+RuleException:
+CalledProcessError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 27:
+Command 'C:/Users/anast/envs/ztp/Scripts/python.exe "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\scripts\tmpftun8x0b.run_archive_data_year.py"' returned non-zero exit status 1.
+[Thu Jan 29 13:15:12 2026]
+Error in rule pm25_archive_download:
+    message: None
+    jobid: 2
+    output: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/2021/pm25_data_2021.pkl
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Thu Jan 29 13:15:12 2026]
+Error in rule pm25_archive_download:
+    message: None
+    jobid: 2
+    output: C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/2021/pm25_data_2021.pkl
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T131205.039031.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

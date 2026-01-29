@@ -114,7 +114,6 @@ def load_metadata():
         print(f"Błąd odczytu pliku metadanych: {e}")
         return None
     return df
-    
 
 def get_old_station_codes(metadata_df):
     """ Wyciąga stare kody stacji z metadanych
@@ -142,131 +141,118 @@ def get_old_station_codes(metadata_df):
     return old_codes, cities, provinces
 
 
-def clean_pm25_data(dfs):
+def clean_pm25_data(df):
     """Czyści Dataframe z danymi PM2.5
 
     Args:
-        dfs (dict): słownik z DataFrame dla każdego roku
-
+        df (pd.DataFrame): DataFrame z danymi PM2.5
     Returns:
         dict: słownik z oczyszczonymi DataFrame dla każdego roku
     """
-    result_dfs = {}
-    for year, df in dfs.items():
-        cleaned_df = df.copy()
-        date_format = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 
-        # Zostawiamy tylko wiersze z potrzebnymi danymi
-        mask = (cleaned_df.iloc[:, 0].astype(str).str.match(date_format) |
-                (cleaned_df.iloc[:, 0] == 'Kod stacji'))
-        
-        cleaned_df = cleaned_df[mask].reset_index(drop=True)
+    cleaned_df = df.copy()
+    date_format = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 
-        # Ustawienie wiersza gdzie jest 'Kod stacji' jako nagłówki kolumn
-        id = cleaned_df[cleaned_df.iloc[:, 0] == 'Kod stacji'].index[0]
-        cleaned_df.columns = cleaned_df.loc[id].tolist()
-        cleaned_df = cleaned_df.drop(index=id).reset_index(drop=True)
+    # Zostawiamy tylko wiersze z potrzebnymi danymi
+    mask = (cleaned_df.iloc[:, 0].astype(str).str.match(date_format) |
+            (cleaned_df.iloc[:, 0] == 'Kod stacji'))
+    
+    cleaned_df = cleaned_df[mask].reset_index(drop=True)
 
-        # Przemianowanie kolumny z datami i zmiana na format datetime
-        cleaned_df = cleaned_df.rename(columns={'Kod stacji': 'Data'})
-        cleaned_df['Data'] = pd.to_datetime(cleaned_df['Data'])
+    # Ustawienie wiersza gdzie jest 'Kod stacji' jako nagłówki kolumn
+    id = cleaned_df[cleaned_df.iloc[:, 0] == 'Kod stacji'].index[0]
+    cleaned_df.columns = cleaned_df.loc[id].tolist()
+    cleaned_df = cleaned_df.drop(index=id).reset_index(drop=True)
 
-        # Zamiana przecinków na kropki (jeśli plik używa przecinków jako separatora dziesiętnego, np. 2018)
-        cleaned_df = cleaned_df.replace(',', '.', regex=True).infer_objects(copy=False)
+    # Przemianowanie kolumny z datami i zmiana na format datetime
+    cleaned_df = cleaned_df.rename(columns={'Kod stacji': 'Data'})
+    cleaned_df['Data'] = pd.to_datetime(cleaned_df['Data'])
 
-        # Konwersja kolumn stacji na typ float
-        for col in cleaned_df.columns:
-            if col != 'Data':
-                cleaned_df[col] = pd.to_numeric(cleaned_df[col], errors='coerce')
+    # Zamiana przecinków na kropki (jeśli plik używa przecinków jako separatora dziesiętnego, np. 2018)
+    cleaned_df = cleaned_df.replace(',', '.', regex=True).infer_objects(copy=False)
 
+    # Konwersja kolumn stacji na typ float
+    for col in cleaned_df.columns:
+        if col != 'Data':
+            cleaned_df[col] = pd.to_numeric(cleaned_df[col], errors='coerce')
 
-        result_dfs[year] = cleaned_df
-
-    return result_dfs
+    return cleaned_df
 
 
-def replace_old_codes(dfs, old_codes):
+def replace_old_codes(df, old_codes):
     """Zamienia stare kody stacji na nowe w Dataframe
 
     Args:
-        dfs (dict): słownik z DataFrame dla każdego roku
+        df (pd.DataFrame): DataFrame z danymi PM2.5
         old_codes (dict): słownik mapujący stare kody stacji na nowe
 
     Returns:
-        dict: słownik z DataFrame z zamienionymi kodami stacji
+        pd.DataFrame: DataFrame z zamienionymi kodami stacji
     """
-    result_dfs = {}
-    for year, df in dfs.items():
-        changed_df = df.copy()
-        stations = changed_df.columns.tolist()
-        changes = 0
-        sample_changes = []
 
-        for station in stations[1:]:
-            if station in old_codes:
-                new_code = old_codes[station]
-                if len(sample_changes) < 5:
-                    sample_changes.append((station, new_code))
-                
-                stations[stations.index(station)] = new_code
-                changes += 1
+    changed_df = df.copy()
+    stations = changed_df.columns.tolist()
+    changes = 0
+    sample_changes = []
 
-        # sanity check
-        print(f"\nRok {year} → liczba mapowań: {changes}")
+    for station in stations[1:]:
+        if station in old_codes:
+            new_code = old_codes[station]
+            if len(sample_changes) < 5:
+                sample_changes.append((station, new_code))
+            
+            stations[stations.index(station)] = new_code
+            changes += 1
 
-        # kilka przykładowych mapowań
-        if sample_changes:
-            print("\nPrzykładowe mapowania:")
-            for old, new in sample_changes:
-                print(f"    {old} → {new}")
+    # sanity check
+    # print(f"\nRok {year} → liczba mapowań: {changes}")
 
-        changed_df.columns = stations
-        result_dfs[year] = changed_df
+    # # kilka przykładowych mapowań
+    # if sample_changes:
+    #     print("\nPrzykładowe mapowania:")
+    #     for old, new in sample_changes:
+    #         print(f"    {old} → {new}")
 
-    return result_dfs
+    changed_df.columns = stations
+
+    return changed_df
 
 
-def correct_dates(dfs):
+
+def correct_dates(df):
     """Poprawia daty
 
     Args:
-        dfs (dict): słownik z DataFrame dla każdego roku
-
+        df (pd.DataFrame): DataFrame z danymi PM2.5
     Returns:
-        dict: słownik z DataFrame z poprawionymi datami
+        pd.DataFrame: DataFrame z poprawionymi datami
     """
-    result_dfs = {}
-    for year, df in dfs.items():
-        changed_df = df.copy()
+    changed_df = df.copy()
+
+    cutoff = pd.Timedelta(seconds=59)
+    mask_midnight = changed_df['Data'].dt.time <= (pd.Timestamp("00:00:00") + cutoff).time()
+
+    if mask_midnight.any():
+        # bierzemy pierwszy
+        idx = mask_midnight.idxmax()#bierzemy true
+        example_before = changed_df.loc[idx, 'Data']
+    else:
+        example_before = None
+
+    # korekta
+    changed_df.loc[mask_midnight, 'Data'] = (changed_df.loc[mask_midnight, 'Data'].dt.normalize() - pd.Timedelta(seconds=1))
+
+    # # po korekcie sanity check
+    # if example_before is not None:
+    #     example_after = changed_df.loc[idx, 'Data']
+    #     print(f"Przykład zmiany daty w {year}: {example_before} → {example_after}")
+    # else:
+    #     print(f"Rok {year}: brak dat wymagających korekty\n")
+
+    return changed_df
 
 
-        cutoff = pd.Timedelta(seconds=59)
-        mask_midnight = changed_df['Data'].dt.time <= (pd.Timestamp("00:00:00") + cutoff).time()
-
-        if mask_midnight.any():
-            # bierzemy pierwszy
-            idx = mask_midnight.idxmax()#bierzemy true
-            example_before = changed_df.loc[idx, 'Data']
-        else:
-            example_before = None
-
-        # korekta
-        changed_df.loc[mask_midnight, 'Data'] = (changed_df.loc[mask_midnight, 'Data'].dt.normalize() - pd.Timedelta(seconds=1))
-
-        # po korekcie sanity check
-        if example_before is not None:
-            example_after = changed_df.loc[idx, 'Data']
-            print(f"Przykład zmiany daty w {year}: {example_before} → {example_after}")
-        else:
-            print(f"Rok {year}: brak dat wymagających korekty\n")
-
- 
-        result_dfs[year] = changed_df
-        
-    return result_dfs
-
-
-def merge_dataframes(dfs, cities,provinces,):
+def merge_dataframes(dfs, cities, provinces):
     """Łączy dane z różnych lat w jeden Dataframe
 
     Args:
@@ -277,7 +263,7 @@ def merge_dataframes(dfs, cities,provinces,):
     Returns:
         dict: słownik z DataFrame z poprawionymi datami
     """
-    merged_df = pd.concat(dfs.values(), axis=0, join='inner', ignore_index=True)
+    merged_df = pd.concat(dfs, axis=0, join='inner', ignore_index=True)
     
     # Zamiana na MultiIndex
     new_columns = []

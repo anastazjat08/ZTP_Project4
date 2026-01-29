@@ -1,0 +1,4 @@
+SyntaxError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 8:
+invalid syntax. Perhaps you forgot a comma?:
+rule pm25_metadata:
+

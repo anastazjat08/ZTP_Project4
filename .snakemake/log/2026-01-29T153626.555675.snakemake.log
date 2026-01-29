@@ -1,0 +1,38 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                      count
+---------------------  -------
+all                          1
+pm25_archive_download        2
+pm25_clean                   2
+pm25_dictionaries            1
+pm25_merge                   1
+pm25_metadata                1
+total                        8
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 15:36:27 2026]
+localrule pm25_archive_download:
+    output: data/raw/pm25_data_2021.pkl
+    jobid: 2
+    reason: Code has changed since last execution
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+RuleException:
+CalledProcessError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 42:
+Command 'C:/Users/anast/envs/ztp/Scripts/python.exe "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\scripts\tmp5750l94m.download_archive_data_year.py"' returned non-zero exit status 3221225786.
+[Thu Jan 29 15:37:23 2026]
+Error in rule pm25_archive_download:
+    message: None
+    jobid: 2
+    output: data/raw/pm25_data_2021.pkl
+Terminating processes on user request, this might take some time.
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T153626.555675.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
