@@ -133,13 +133,14 @@ def fetch_pubmed_metadata(id_list, email):
                 "Title": article_title,
                 "Authors": authors_str,
                 "Journal": journal_title,
-                "PublicationDate": pub_date,
                 "Year": pub_date["Year"],
                 "Month": pub_date["Month"],
                 "Day": pub_date["Day"]
             })
         handle.close()
         df = pd.DataFrame(metadata)
+        for col in ["Year", "Month", "Day"]:
+            df[col] = df[col].astype("Int64")
 
         return df
     
