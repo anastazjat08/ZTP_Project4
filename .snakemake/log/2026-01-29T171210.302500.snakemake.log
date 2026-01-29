@@ -1,0 +1,50 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                   count
+------------------  -------
+all                       1
+pm25_filter_common        2
+total                     3
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 17:12:10 2026]
+localrule pm25_filter_common:
+    input: data/dictionaries.pkl, data/common_stations.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/clean/pm25_data_common_2024.pkl
+    jobid: 9
+    reason: Missing output files: data/clean/pm25_data_common_2024.pkl; Set of input files has changed since last execution
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+[Thu Jan 29 17:12:11 2026]
+Finished jobid: 9 (Rule: pm25_filter_common)
+1 of 3 steps (33%) done
+Execute 1 jobs...
+[Thu Jan 29 17:12:11 2026]
+localrule pm25_filter_common:
+    input: data/dictionaries.pkl, data/common_stations.pkl, data/clean/pm25_data_clean_2021.pkl
+    output: data/clean/pm25_data_common_2021.pkl
+    jobid: 8
+    reason: Missing output files: data/clean/pm25_data_common_2021.pkl; Set of input files has changed since last execution
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 17:12:12 2026]
+Finished jobid: 8 (Rule: pm25_filter_common)
+2 of 3 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 17:12:12 2026]
+localrule all:
+    input: data/metadata.pkl, data/raw/pm25_data_2021.pkl, data/raw/pm25_data_2024.pkl, data/dictionaries.pkl, data/clean/pm25_data_clean_2021.pkl, data/clean/pm25_data_clean_2024.pkl, data/pm25_data_merged.pkl, data/common_stations.pkl, data/clean/pm25_data_common_2021.pkl, data/clean/pm25_data_common_2024.pkl
+    jobid: 0
+    reason: Input files updated by another job: data/clean/pm25_data_common_2021.pkl, data/clean/pm25_data_common_2024.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 17:12:12 2026]
+Finished jobid: 0 (Rule: all)
+3 of 3 steps (100%) done
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T171210.302500.snakemake.log

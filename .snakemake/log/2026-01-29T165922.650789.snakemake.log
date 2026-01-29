@@ -1,0 +1,78 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                   count
+------------------  -------
+all                       1
+pm25_filter_common        2
+pm25_find_common          1
+total                     4
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 16:59:25 2026]
+localrule pm25_find_common:
+    input: data/clean/pm25_data_clean_2021.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/common_stations.pkl
+    jobid: 7
+    reason: Missing output files: data/common_stations.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 16:59:27 2026]
+Finished jobid: 7 (Rule: pm25_find_common)
+1 of 4 steps (25%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Thu Jan 29 16:59:27 2026]
+localrule pm25_filter_common:
+    input: data/common_stations.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/clean/pm25_data_common_2024.pkl
+    jobid: 9
+    reason: Missing output files: data/clean/pm25_data_common_2024.pkl; Input files updated by another job: data/common_stations.pkl
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 16:59:27 2026]
+localrule pm25_filter_common:
+    input: data/common_stations.pkl, data/clean/pm25_data_clean_2021.pkl
+    output: data/clean/pm25_data_common_2021.pkl
+    jobid: 8
+    reason: Missing output files: data/clean/pm25_data_common_2021.pkl; Input files updated by another job: data/common_stations.pkl
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 79:
+Command 'C:/Users/anast/envs/ztp/Scripts/python.exe "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\scripts\tmps_l00jzq.filter_common_stations.py"' returned non-zero exit status 1.
+RuleException:
+CalledProcessError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 79:
+Command 'C:/Users/anast/envs/ztp/Scripts/python.exe "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\scripts\tmpblzp4mh9.filter_common_stations.py"' returned non-zero exit status 1.
+[Thu Jan 29 16:59:28 2026]
+Error in rule pm25_filter_common:
+    message: None
+    jobid: 9
+    input: data/common_stations.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/clean/pm25_data_common_2024.pkl
+[Thu Jan 29 16:59:28 2026]
+Error in rule pm25_filter_common:
+    message: None
+    jobid: 8
+    input: data/common_stations.pkl, data/clean/pm25_data_clean_2021.pkl
+    output: data/clean/pm25_data_common_2021.pkl
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Thu Jan 29 16:59:28 2026]
+Error in rule pm25_filter_common:
+    message: None
+    jobid: 9
+    input: data/common_stations.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/clean/pm25_data_common_2024.pkl
+[Thu Jan 29 16:59:28 2026]
+Error in rule pm25_filter_common:
+    message: None
+    jobid: 8
+    input: data/common_stations.pkl, data/clean/pm25_data_clean_2021.pkl
+    output: data/clean/pm25_data_common_2021.pkl
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T165922.650789.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

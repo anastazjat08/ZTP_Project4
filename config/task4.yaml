@@ -1,6 +1,8 @@
 
 years: [2021, 2024]
 
+interested_years: [2021, 2024]
+
 cities:
   - Warszawa
   - Katowice
@@ -30,5 +32,5 @@ plot_titles:
 
 pubmed:
   email: example@example.com
-  query: "cancer genomics"
+  query: "cancer AND pollution"
   max_results: 500

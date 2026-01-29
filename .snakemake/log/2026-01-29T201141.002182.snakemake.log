@@ -1,0 +1,53 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+pubmed_download        2
+total                  3
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 20:11:41 2026]
+localrule pubmed_download:
+    input: config/task4.yaml
+    output: results/literature/2021/pubmed_data.csv
+    jobid: 15
+    reason: Missing output files: results/literature/2021/pubmed_data.csv
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+RuleException:
+CalledProcessError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 142:
+Command 'python scripts\literature\pubmed_fetch.py             --year 2021             --config config/task4.yaml' returned non-zero exit status 1.
+[Thu Jan 29 20:12:54 2026]
+Error in rule pubmed_download:
+    message: None
+    jobid: 15
+    input: config/task4.yaml
+    output: results/literature/2021/pubmed_data.csv
+    shell:
+        
+        python scripts\literature\pubmed_fetch.py             --year 2021             --config config/task4.yaml
+        
+        (command exited with non-zero exit code)
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Thu Jan 29 20:12:54 2026]
+Error in rule pubmed_download:
+    message: None
+    jobid: 15
+    input: config/task4.yaml
+    output: results/literature/2021/pubmed_data.csv
+    shell:
+        
+        python scripts\literature\pubmed_fetch.py             --year 2021             --config config/task4.yaml
+        
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T201141.002182.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

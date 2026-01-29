@@ -1,0 +1,206 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                             count
+----------------------------  -------
+all                                 1
+pm25_archive_download               2
+pm25_clean                          2
+pm25_dictionaries                   1
+pm25_exceedance_days                2
+pm25_filter_common                  2
+pm25_find_common                    1
+pm25_means_for_chosen_cities        1
+pm25_metadata                       1
+pm25_month_means                    2
+total                              15
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 18:53:50 2026]
+localrule pm25_archive_download:
+    output: data/raw/pm25_data_2024.pkl
+    jobid: 3
+    reason: Missing output files: data/raw/pm25_data_2024.pkl
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+[Thu Jan 29 18:55:27 2026]
+Finished jobid: 3 (Rule: pm25_archive_download)
+1 of 15 steps (7%) done
+Execute 1 jobs...
+[Thu Jan 29 18:55:27 2026]
+localrule pm25_metadata:
+    output: data/metadata.pkl
+    jobid: 1
+    reason: Code has changed since last execution
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+[Thu Jan 29 18:55:31 2026]
+Finished jobid: 1 (Rule: pm25_metadata)
+2 of 15 steps (13%) done
+Execute 1 jobs...
+[Thu Jan 29 18:55:31 2026]
+localrule pm25_archive_download:
+    output: data/raw/pm25_data_2021.pkl
+    jobid: 2
+    reason: Code has changed since last execution
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+Select jobs to execute...
+[Thu Jan 29 18:58:12 2026]
+Finished jobid: 2 (Rule: pm25_archive_download)
+3 of 15 steps (20%) done
+Execute 1 jobs...
+[Thu Jan 29 18:58:12 2026]
+localrule pm25_dictionaries:
+    input: data/metadata.pkl
+    output: data/dictionaries.pkl
+    jobid: 4
+    reason: Input files updated by another job: data/metadata.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:13 2026]
+Finished jobid: 4 (Rule: pm25_dictionaries)
+4 of 15 steps (27%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Thu Jan 29 18:58:13 2026]
+localrule pm25_clean:
+    input: data/dictionaries.pkl, data/raw/pm25_data_2021.pkl
+    output: data/clean/pm25_data_clean_2021.pkl
+    jobid: 5
+    reason: Input files updated by another job: data/dictionaries.pkl, data/raw/pm25_data_2021.pkl
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:13 2026]
+localrule pm25_clean:
+    input: data/dictionaries.pkl, data/raw/pm25_data_2024.pkl
+    output: data/clean/pm25_data_clean_2024.pkl
+    jobid: 6
+    reason: Input files updated by another job: data/raw/pm25_data_2024.pkl, data/dictionaries.pkl
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:14 2026]
+Finished jobid: 5 (Rule: pm25_clean)
+5 of 15 steps (33%) done
+[Thu Jan 29 18:58:14 2026]
+Finished jobid: 6 (Rule: pm25_clean)
+6 of 15 steps (40%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 18:58:14 2026]
+localrule pm25_find_common:
+    input: data/clean/pm25_data_clean_2021.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/common_stations.pkl
+    jobid: 7
+    reason: Input files updated by another job: data/clean/pm25_data_clean_2021.pkl, data/clean/pm25_data_clean_2024.pkl
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:15 2026]
+Finished jobid: 7 (Rule: pm25_find_common)
+7 of 15 steps (47%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Thu Jan 29 18:58:15 2026]
+localrule pm25_filter_common:
+    input: data/dictionaries.pkl, data/common_stations.pkl, data/clean/pm25_data_clean_2024.pkl
+    output: data/clean/pm25_data_common_2024.pkl
+    jobid: 9
+    reason: Input files updated by another job: data/clean/pm25_data_clean_2024.pkl, data/common_stations.pkl, data/dictionaries.pkl
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:16 2026]
+localrule pm25_filter_common:
+    input: data/dictionaries.pkl, data/common_stations.pkl, data/clean/pm25_data_clean_2021.pkl
+    output: data/clean/pm25_data_common_2021.pkl
+    jobid: 8
+    reason: Input files updated by another job: data/clean/pm25_data_clean_2021.pkl, data/common_stations.pkl, data/dictionaries.pkl
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:17 2026]
+Finished jobid: 9 (Rule: pm25_filter_common)
+8 of 15 steps (53%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Thu Jan 29 18:58:17 2026]
+localrule pm25_month_means:
+    input: data/clean/pm25_data_common_2024.pkl
+    output: results/pm25/2024/month_means.csv
+    jobid: 11
+    reason: Input files updated by another job: data/clean/pm25_data_common_2024.pkl
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:17 2026]
+localrule pm25_exceedance_days:
+    input: data/clean/pm25_data_common_2024.pkl
+    output: results/pm25/2024/exceedance_days.pkl
+    jobid: 14
+    reason: Input files updated by another job: data/clean/pm25_data_common_2024.pkl
+    wildcards: year=2024
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:17 2026]
+Finished jobid: 8 (Rule: pm25_filter_common)
+9 of 15 steps (60%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 18:58:17 2026]
+localrule pm25_month_means:
+    input: data/clean/pm25_data_common_2021.pkl
+    output: results/pm25/2021/month_means.csv
+    jobid: 10
+    reason: Input files updated by another job: data/clean/pm25_data_common_2021.pkl
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:18 2026]
+Finished jobid: 11 (Rule: pm25_month_means)
+10 of 15 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 18:58:18 2026]
+localrule pm25_exceedance_days:
+    input: data/clean/pm25_data_common_2021.pkl
+    output: results/pm25/2021/exceedance_days.pkl
+    jobid: 13
+    reason: Input files updated by another job: data/clean/pm25_data_common_2021.pkl
+    wildcards: year=2021
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+[Thu Jan 29 18:58:18 2026]
+Finished jobid: 14 (Rule: pm25_exceedance_days)
+11 of 15 steps (73%) done
+[Thu Jan 29 18:58:18 2026]
+Finished jobid: 10 (Rule: pm25_month_means)
+12 of 15 steps (80%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 18:58:18 2026]
+localrule pm25_means_for_chosen_cities:
+    input: results/pm25/2021/month_means.csv, results/pm25/2024/month_means.csv
+    output: results/pm25/chosen_cities_month_means.csv
+    jobid: 12
+    reason: Input files updated by another job: results/pm25/2021/month_means.csv, results/pm25/2024/month_means.csv
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 118:
+Command 'C:/Users/anast/envs/ztp/Scripts/python.exe "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\scripts\tmpqvw03hx6.calculate_for_chosen_cities.py"' returned non-zero exit status 1.
+[Thu Jan 29 18:58:18 2026]
+Error in rule pm25_means_for_chosen_cities:
+    message: None
+    jobid: 12
+    input: results/pm25/2021/month_means.csv, results/pm25/2024/month_means.csv
+    output: results/pm25/chosen_cities_month_means.csv
+[Thu Jan 29 18:58:18 2026]
+Finished jobid: 13 (Rule: pm25_exceedance_days)
+13 of 15 steps (87%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Thu Jan 29 18:58:18 2026]
+Error in rule pm25_means_for_chosen_cities:
+    message: None
+    jobid: 12
+    input: results/pm25/2021/month_means.csv, results/pm25/2024/month_means.csv
+    output: results/pm25/chosen_cities_month_means.csv
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T185350.079414.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

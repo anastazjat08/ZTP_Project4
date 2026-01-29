@@ -1,0 +1,41 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                             count
+----------------------------  -------
+all                                 1
+pm25_means_for_chosen_cities        1
+total                               2
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Jan 29 17:53:47 2026]
+localrule pm25_means_for_chosen_cities:
+    input: results/pm25/2021/month_means.csv
+    output: results/pm25/chosen_cities_month_means.csv
+    jobid: 12
+    reason: Missing output files: results/pm25/chosen_cities_month_means.csv
+    resources: tmpdir=C:\Users\anast\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 117:
+Command 'C:/Users/anast/envs/ztp/Scripts/python.exe "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\scripts\tmpu2gsd93r.calculate_for_chosen_cities.py"' returned non-zero exit status 1.
+[Thu Jan 29 17:53:49 2026]
+Error in rule pm25_means_for_chosen_cities:
+    message: None
+    jobid: 12
+    input: results/pm25/2021/month_means.csv
+    output: results/pm25/chosen_cities_month_means.csv
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Thu Jan 29 17:53:49 2026]
+Error in rule pm25_means_for_chosen_cities:
+    message: None
+    jobid: 12
+    input: results/pm25/2021/month_means.csv
+    output: results/pm25/chosen_cities_month_means.csv
+Complete log(s): C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\.snakemake\log\2026-01-29T175347.430269.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
