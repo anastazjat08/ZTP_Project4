@@ -45,7 +45,7 @@ def fetch_pubmed_articles(year, query, email, max_results):
     Entrez.email = email
     handle = Entrez.esearch(
         db="pubmed",
-        term=f"{query} AND {year}[PDAT]",
+        term=f'{query} AND ("{year}/01/01"[Date - Publication] : "{year}/12/31"[Date - Publication])',
         retmax=max_results)
     
     results = Entrez.read(handle)
