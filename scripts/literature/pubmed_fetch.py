@@ -53,6 +53,36 @@ def fetch_pubmed_articles(year, query, email, max_results):
 
     return results["IdList"]
 
+def parse_date(pub_date):
+    '''
+    Parsuje datę publikacji z formatu PubMed na słownik z kluczami Year, Month, Day
+    
+    Args:
+        pub_date (dict): Słownik z datą publikacji w formacie PubMed
+    Returns:
+        dict: Słownik z kluczami Year, Month, Day
+    '''
+    if not pub_date:
+        return {"Year": None, "Month": None, "Day": None}
+
+    year = pub_date.get("Year")
+    month = pub_date.get("Month")
+    day = pub_date.get("Day")
+
+    # Miesiąc jako liczba
+    month_map = {
+        "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
+        "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
+        "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12
+    }
+    month_num = month_map.get(month) if month else None
+
+    return {
+        "Year": int(year) if year else None,
+        "Month": month_num,
+        "Day": int(day) if day else None
+    }
+
 def fetch_pubmed_metadata(id_list, email):
     '''
     Pobiera metadane artykułów z PubMed na podstawie listy identyfikatorów
@@ -96,13 +126,17 @@ def fetch_pubmed_metadata(id_list, email):
                     if 'LastName' in author and 'Initials' in author
                 ]
             )
+            pub_date = parse_date(pub_date)
 
             metadata.append({
                 "PMID": pmid,
                 "Title": article_title,
                 "Authors": authors_str,
                 "Journal": journal_title,
-                "PublicationDate": pub_date
+                "PublicationDate": pub_date,
+                "Year": pub_date["Year"],
+                "Month": pub_date["Month"],
+                "Day": pub_date["Day"]
             })
         handle.close()
         df = pd.DataFrame(metadata)
