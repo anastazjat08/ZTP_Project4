@@ -1,8 +1,0 @@
-Assuming unrestricted shared filesystem usage.
-host: LAPTOP-GH71FSAC
-Building DAG of jobs...
-MissingInputException in rule pm25_dictionaries in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 29:
-Missing input files for rule pm25_dictionaries:
-    output: data/dictionaries.pkl
-    affected files:
-        data/metadata.pkl

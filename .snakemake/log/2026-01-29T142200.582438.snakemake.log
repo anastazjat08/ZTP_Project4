@@ -1,7 +1,0 @@
-Assuming unrestricted shared filesystem usage.
-host: LAPTOP-GH71FSAC
-Building DAG of jobs...
-MissingInputException in rule all in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 5:
-Missing input files for rule all:
-    affected files:
-        C:/Users/anast/Documents/studia_magisterka/I_semestr/ZTP/project4/data/dictionaries.pkl

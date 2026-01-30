@@ -1,9 +1,0 @@
-Assuming unrestricted shared filesystem usage.
-host: LAPTOP-GH71FSAC
-Building DAG of jobs...
-MissingInputException in rule pm25_clean in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 38:
-Missing input files for rule pm25_clean:
-    output: data/clean/pm25_data_2021.pkl
-    wildcards: year=2021
-    affected files:
-        data/raw/pm25_data_2021.pkl
