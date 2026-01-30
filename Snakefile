@@ -19,7 +19,10 @@ rule all:
         expand(r"results\pm25\{year}\month_means.csv", year=YEARS),
         r"results\pm25\chosen_cities_month_means.csv",
         expand(r"results\pm25\{year}\exceedance_days.csv", year=YEARS), 
-        expand(r"results\literature\{year}\pubmed_data.csv", year=YEARS)
+        expand(r"results\literature\{year}\pubmed_data.csv", year=YEARS),
+        expand(r"results\literature\{year}\summary_by_year.csv", year=YEARS),
+        expand(r"results\literature\{year}\top_journals.csv", year=YEARS),
+        expand(r"results\literature\{year}\avg_authors.txt", year=YEARS)
         
 
 # -----------------------------
@@ -131,11 +134,15 @@ rule pm25_exceedance_days:
 # Pubmed
 # ---------------------------
 
+# Pobieranie danych z PubMed i agregacja wyników
 rule pubmed_download:
     input:
         config = r"config\task4.yaml"
     output:
-        r"results\literature\{year}\pubmed_data.csv"
+        r"results\literature\{year}\pubmed_data.csv",
+        r"results\literature\{year}\summary_by_year.csv",
+        r"results\literature\{year}\top_journals.csv",
+        r"results\literature\{year}\avg_authors.txt"
     params:
         year = lambda wildcards: int(wildcards.year)
     shell:

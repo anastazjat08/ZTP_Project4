@@ -1,0 +1,12 @@
+Assuming unrestricted shared filesystem usage.
+host: LAPTOP-GH71FSAC
+Building DAG of jobs...
+MissingInputException in rule all in file "C:\Users\anast\Documents\studia_magisterka\I_semestr\ZTP\project4\Snakefile", line 10:
+Missing input files for rule all:
+    affected files:
+        results/literature/2024/avg_authors.txt
+        results/literature/2024/top_journals.csv
+        results/literature/2021/avg_authors.txt
+        results/literature/2021/top_journals.csv
+        results/literature/2024/summary_by_year.csv
+        results/literature/2021/summary_by_year.csv

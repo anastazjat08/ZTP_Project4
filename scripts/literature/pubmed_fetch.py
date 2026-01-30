@@ -1,10 +1,14 @@
 import argparse
 import yaml
-import os
 import pandas as pd
 from Bio import Entrez
 from pathlib import Path
 import ssl
+
+'''
+Skrypt do pobierania artykułów z PubMed na podstawie roku publikacji i zapytania wyszukiwania.
+Metadane artykułów są zapisywane do plików CSV.
+'''
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -154,9 +158,19 @@ def save_metadata_to_csv(df, output_path):
     '''
     df.to_csv(output_path, index=False)
 
-def summary(df, year):
-    pass
+def aggregation(df):
+    
+    # Podsumowanie lat publikacji
+    summary_by_year = df.groupby('Year').size().reset_index(name='Liczba artykułów').sort_values(by='Year')
 
+    # Podsumowanie czasopism
+    top_journals = df.groupby('Journal').size().reset_index(name='Liczba artykułów').sort_values(by='Liczba artykułów', ascending=False).head(10)
+
+    # Średnia liczba autorów na artykuł
+    df['Liczba autorów'] = df['Authors'].apply(lambda x: len(x.split(',')) if pd.notnull(x) else 0)
+    avg_authors = df['Liczba autorów'].mean()
+
+    return summary_by_year, top_journals, avg_authors
 
 
 def main():
@@ -179,10 +193,33 @@ def main():
 
     # Zapisywanie metadanych do pliku CSV
     output_path = Path(f"results/literature/{args.year}/pubmed_data.csv")
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    print(f"Zapisywanie metadanych do pliku {output_path}...")
-    save_metadata_to_csv(metadata_df, output_path)
-    print("Gotowe!")
+    if not output_path.exists():
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        print(f"Zapisywanie metadanych do pliku {output_path}...")
+        save_metadata_to_csv(metadata_df, output_path)
+        print("Gotowe!")
+
+    # Agregacja i podsumowanie danych
+    print("Tworzenie podsumowań...")
+    summary_by_year, top_journals, avg_authors = aggregation(metadata_df)
+
+    output_folder_path = Path(f"results/literature/{args.year}")
+    output_folder_path.mkdir(parents=True, exist_ok=True)
+    summary_by_year_path = output_folder_path / 'summary_by_year.csv'
+    top_journals_path = output_folder_path / 'top_journals.csv'
+    avg_authors_path = output_folder_path / 'avg_authors.txt'
+
+
+    summary_by_year.to_csv(summary_by_year_path, index=False)
+    print("Zapisano podsumowanie lat publikacji.")
+   
+    top_journals.to_csv(top_journals_path, index=False)
+    print("Zapisano podsumowanie najpopularniejszych czasopism.")
+    
+    with open(avg_authors_path, 'w') as f:
+        f.write(f'{avg_authors:.2f}')
+    print("Zapisano średnią liczbę autorów na artykuł.")
+
 
 
 if __name__ == "__main__":
