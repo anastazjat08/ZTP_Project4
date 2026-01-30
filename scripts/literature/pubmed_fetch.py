@@ -128,7 +128,7 @@ def fetch_pubmed_metadata(id_list, email):
             journal_title = article_data.get("Journal", {}).get("Title", "")
             pub_date = article_data.get("Journal", {}).get("JournalIssue", {}).get("PubDate", {})
 
-            authors_str = ",".join(
+            authors_str = ", ".join(
                 [
                     f"{author.get('LastName', '')} {author.get('Initials', '')}"
                     for author in authors_list
