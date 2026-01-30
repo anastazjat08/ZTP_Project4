@@ -93,7 +93,7 @@ def calculate_days_exceeding_limit_by_province(df, limit=15):
 
     df_copy = df.copy()
     # Obliczanie średnich dziennych
-    daily_means = calculate_daily_station_averages(df)
+    daily_means = calculate_daily_station_averages(df_copy)
     # Sprawdzenie przekroczeń dla każdej stacji
     exceeded = daily_means > limit
     # Sprawdzam czy w danym dniu było przekroczenie w województwie

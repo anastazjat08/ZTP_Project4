@@ -22,7 +22,8 @@ rule all:
         expand(r"results\literature\{year}\pubmed_data.csv", year=YEARS),
         expand(r"results\literature\{year}\summary_by_year.csv", year=YEARS),
         expand(r"results\literature\{year}\top_journals.csv", year=YEARS),
-        expand(r"results\literature\{year}\avg_authors.txt", year=YEARS)
+        expand(r"results\literature\{year}\summary_by_month.csv", year=YEARS),
+        r"results\Raport.md"
         
 
 # -----------------------------
@@ -142,7 +143,7 @@ rule pubmed_download:
         r"results\literature\{year}\pubmed_data.csv",
         r"results\literature\{year}\summary_by_year.csv",
         r"results\literature\{year}\top_journals.csv",
-        r"results\literature\{year}\avg_authors.txt"
+        r"results\literature\{year}\summary_by_month.csv"
     params:
         year = lambda wildcards: int(wildcards.year)
     shell:
@@ -152,3 +153,20 @@ rule pubmed_download:
             --config {input.config}
         """
   
+#-----------------------------
+# Budowanie raportu
+# ----------------------------
+
+rule report:
+    input:
+        pm25_files = expand(
+            r"results\pm25\{year}\exceedance_days.csv", year=YEARS),
+        pubmed_files = expand(
+            r"results\literature\{year}\{file}", year=YEARS,
+            file=["pubmed_data.csv", "summary_by_year.csv", "top_journals.csv", "summary_by_month.csv"])
+    params:
+        years = YEARS
+    output:
+        report = r"results\Raport.md"
+    script:
+        r"scripts\build_report.py"

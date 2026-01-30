@@ -74,16 +74,21 @@ def parse_date(pub_date):
     day = pub_date.get("Day")
 
     # Miesiąc jako liczba
-    month_map = {
-        "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
-        "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
-        "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12
-    }
-    month_num = month_map.get(month) if month else None
+    # month_map = {
+    #     "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
+    #     "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
+    #     "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12
+    # }
+    # month_map = {
+    #     "Jan": 'Sty', "Feb": 'Lut', "Mar": 'Mar', "Apr": 'Kwi',
+    #     "May": 'Maj', "Jun": 'Czer', "Jul": 'Lip', "Aug": 'Sier',
+    #     "Sep": , "Oct": 10, "Nov": 11, "Dec": 12
+    # }
+    # month_num = month_map.get(month) if month else None
 
     return {
         "Year": int(year) if year else None,
-        "Month": month_num,
+        "Month": month if month else None,
         "Day": int(day) if day else None
     }
 
@@ -134,16 +139,16 @@ def fetch_pubmed_metadata(id_list, email):
 
             metadata.append({
                 "PMID": pmid,
-                "Title": article_title,
-                "Authors": authors_str,
-                "Journal": journal_title,
-                "Year": pub_date["Year"],
-                "Month": pub_date["Month"],
-                "Day": pub_date["Day"]
+                "Tytuł": article_title,
+                "Autorzy": authors_str,
+                "Czasopismo": journal_title,
+                "Rok": pub_date["Year"],
+                "Miesiąc": pub_date["Month"],
+                "Dzień": pub_date["Day"]
             })
         handle.close()
         df = pd.DataFrame(metadata)
-        for col in ["Year", "Month", "Day"]:
+        for col in ["Rok","Dzień"]:
             df[col] = df[col].astype("Int64")
 
         return df
@@ -158,19 +163,36 @@ def save_metadata_to_csv(df, output_path):
     '''
     df.to_csv(output_path, index=False)
 
-def aggregation(df):
+def aggregation(df, year):
     
     # Podsumowanie lat publikacji
-    summary_by_year = df.groupby('Year').size().reset_index(name='Liczba artykułów').sort_values(by='Year')
+    summary_by_year = (
+        df.groupby('Rok')
+        .size()
+        .reset_index(name='Liczba artykułów')
+        .sort_values(by='Rok')
+    )
 
     # Podsumowanie czasopism
-    top_journals = df.groupby('Journal').size().reset_index(name='Liczba artykułów').sort_values(by='Liczba artykułów', ascending=False).head(10)
+    top_journals = (
+        df.groupby('Czasopismo')
+        .size()
+        .reset_index(name='Liczba artykułów')
+        .sort_values(by='Liczba artykułów', ascending=False)
+        .head(10)
+    )
 
-    # Średnia liczba autorów na artykuł
-    df['Liczba autorów'] = df['Authors'].apply(lambda x: len(x.split(',')) if pd.notnull(x) else 0)
-    avg_authors = df['Liczba autorów'].mean()
+    summary_by_month = df[(df['Rok'] == year) & (df['Miesiąc'].notna())]
+    # Grupowanie po miesiącach tylko w danym roku
+    summary_by_month = (
+    summary_by_month.groupby('Miesiąc')
+               .size()
+               .reset_index(name='Liczba artykułów')
+               .sort_values('Miesiąc')
+    )
 
-    return summary_by_year, top_journals, avg_authors
+
+    return summary_by_year, top_journals, summary_by_month
 
 
 def main():
@@ -201,13 +223,13 @@ def main():
 
     # Agregacja i podsumowanie danych
     print("Tworzenie podsumowań...")
-    summary_by_year, top_journals, avg_authors = aggregation(metadata_df)
+    summary_by_year, top_journals, summary_by_month = aggregation(metadata_df, args.year)
 
     output_folder_path = Path(f"results/literature/{args.year}")
     output_folder_path.mkdir(parents=True, exist_ok=True)
     summary_by_year_path = output_folder_path / 'summary_by_year.csv'
     top_journals_path = output_folder_path / 'top_journals.csv'
-    avg_authors_path = output_folder_path / 'avg_authors.txt'
+    summary_by_month_path = output_folder_path / 'summary_by_month.csv'
 
 
     summary_by_year.to_csv(summary_by_year_path, index=False)
@@ -215,10 +237,9 @@ def main():
    
     top_journals.to_csv(top_journals_path, index=False)
     print("Zapisano podsumowanie najpopularniejszych czasopism.")
-    
-    with open(avg_authors_path, 'w') as f:
-        f.write(f'{avg_authors:.2f}')
-    print("Zapisano średnią liczbę autorów na artykuł.")
+
+    summary_by_month.to_csv(summary_by_month_path, index=False)
+    print("Zapisano podsumowanie miesięczne publikacji.")
 
 
 

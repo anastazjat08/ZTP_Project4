@@ -1,5 +1,17 @@
-Wojewodztwo,DOLNOŚLĄSKIE,DOLNOŚLĄSKIE,DOLNOŚLĄSKIE,DOLNOŚLĄSKIE,KUJAWSKO-POMORSKIE,KUJAWSKO-POMORSKIE,KUJAWSKO-POMORSKIE,KUJAWSKO-POMORSKIE,KUJAWSKO-POMORSKIE,LUBELSKIE,LUBELSKIE,ŁÓDZKIE,ŁÓDZKIE,ŁÓDZKIE,ŁÓDZKIE,ŁÓDZKIE,LUBUSKIE,LUBUSKIE,LUBUSKIE,LUBUSKIE,MAŁOPOLSKIE,MAŁOPOLSKIE,MAŁOPOLSKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,MAZOWIECKIE,OPOLSKIE,OPOLSKIE,PODLASKIE,PODLASKIE,PODLASKIE,PODLASKIE,PODLASKIE,PODKARPACKIE,PODKARPACKIE,PODKARPACKIE,PODKARPACKIE,PODKARPACKIE,PODKARPACKIE,PODKARPACKIE,PODKARPACKIE,PODKARPACKIE,POMORSKIE,POMORSKIE,POMORSKIE,POMORSKIE,ŚWIĘTOKRZYSKIE,ŚLĄSKIE,ŚLĄSKIE,ŚLĄSKIE,ŚLĄSKIE,ŚLĄSKIE,ŚLĄSKIE,WARMIŃSKO-MAZURSKIE,WARMIŃSKO-MAZURSKIE,WARMIŃSKO-MAZURSKIE,WIELKOPOLSKIE,WIELKOPOLSKIE,ZACHODNIOPOMORSKIE,ZACHODNIOPOMORSKIE
-Miejscowosc,Jelenia Góra,Kłodzko,Wrocław,Wrocław,Bydgoszcz,Bydgoszcz,Nakło nad Notecią,Toruń,Włocławek,Lublin,Zamość,Kutno,Łask,Łódź,Radomsko,Zgierz,Gorzów Wielkopolski,Wschowa,Żary,Zielona Góra,Kraków,Kraków,Tarnów,Legionowo,Otwock,Piastów,Płock,Radom,Siedlce,Warszawa,Warszawa,Warszawa,Warszawa,Warszawa,Żyrardów,Kędzierzyn-Koźle,Opole,Augustów,Białystok,Borsukowizna,Grajewo,Suwałki,Dębica,Jarosław,Jasło,Krosno,Mielec,Nisko,Przemyśl,Rymanów-Zdrój,Rzeszów,Gdańsk,Gdynia,Kościerzyna,Sopot,Starachowice,Bielsko-Biała,Goczałkowice-Zdrój,Katowice,Katowice,Racibórz,Złoty Potok,Elbląg,Ełk,Olsztyn,Kalisz,Poznań,Szczecin,Szczecin
-Stacja,DsJelGorOgin,DsKlodzSzkol,DsWrocAlWisn,DsWrocWybCon,KpBydPlPozna,KpBydWarszaw,KpNaklWawrzy,KpToruKaszow,KpWloclOkrze,LbLubObywate,LbZamoHrubie,LdKutn1Maja7MOB,LdLaskNarutoMOB,LdLodzCzerni,LdRadomsRoln,LdZgieMielcz,LuGorzKosGdy,LuWsKaziWiel,LuZarySzyman,LuZielKrotka,MpKrakAlKras,MpKrakBulwar,MpTarRoSitko,MzLegZegrzyn,MzOtwoBrzozo,MzPiasPulask,MzPlocMiReja,MzRadTochter,MzSiedKonars,MzWarAlNiepo,MzWarBajkowa,MzWarChrosci,MzWarTolstoj,MzWarWokalna,MzZyraRoosev,OpKKozBSmial,OpOpoleKoszy,PdAugustowUz,PdBialUpalna,PdBorsukowiz,PdGrajewoWPoMOB,PdSuwPulask2,PkDebiGrottg,PkJarosPruch,PkJasloSikor,PkKrosKletow,PkMielBierna,PkNiskoSzkla,PkPrzemGrunw,PkRymZdrPark,PkRzeszPilsu,PmGdaLeczkow,PmGdyPorebsk,PmKosTargowa,PmSopBiPlowc,SkStaraZlota,SlBielPartyz,SlGoczaUzdroMOB,SlKatoKossut,SlKatoPlebA4,SlRaciborzWPMOB,SlZlotPotLes,WmElbBazynsk,WmElkStadion,WmOlsPuszkin,WpKaliSawick,WpPoznDabrow,ZpSzczAndrze,ZpSzczPilsud
-Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-2024,109,129,134,130,108,123,136,140,182,170,152,181,157,128,156,189,115,98,83,145,178,152,97,121,135,124,131,161,79,152,142,108,183,102,142,111,120,156,76,22,83,69,185,128,89,65,144,149,146,37,203,139,143,102,123,145,171,139,165,267,186,117,100,100,139,163,145,72,130
+Województwa,Dni z przekroczeniem średniej normy w roku
+DOLNOŚLĄSKIE,167
+KUJAWSKO-POMORSKIE,200
+LUBELSKIE,184
+LUBUSKIE,189
+MAZOWIECKIE,210
+MAŁOPOLSKIE,196
+OPOLSKIE,139
+PODKARPACKIE,233
+PODLASKIE,165
+POMORSKIE,166
+WARMIŃSKO-MAZURSKIE,153
+WIELKOPOLSKIE,180
+ZACHODNIOPOMORSKIE,130
+ŁÓDZKIE,236
+ŚLĄSKIE,268
+ŚWIĘTOKRZYSKIE,145

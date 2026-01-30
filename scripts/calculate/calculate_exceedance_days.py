@@ -8,5 +8,7 @@ output_filepath = Path(snakemake.output[0])
 # Tworzenie katalogu, jeśli nie istnieje
 output_filepath.parent.mkdir(parents=True, exist_ok=True)
 
-result = calculate_days_exceeding_limit(df, limit=15)
-result.to_csv(output_filepath) # może lepiej na pickle, zachowuje strukture
+result = calculate_days_exceeding_limit_by_province(df, limit=15)
+result = result.T.reset_index()
+result.columns = ['Województwa', 'Dni z przekroczeniem średniej normy w roku']
+result.to_csv(output_filepath, index = False) # może lepiej na pickle, zachowuje strukture
