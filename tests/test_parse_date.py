@@ -1,4 +1,4 @@
-from scripts.literature.pubmed_fetch import parse_date
+from literature.pubmed_fetch import parse_date
 
 def test_parse_date_full():
     pub_date = {

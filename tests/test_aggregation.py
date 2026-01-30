@@ -1,5 +1,5 @@
 import pandas as pd
-from scripts.literature.pubmed_fetch import aggregation
+from literature.pubmed_fetch import aggregation
 
 
 def test_aggregation():
