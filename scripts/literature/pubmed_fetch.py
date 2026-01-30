@@ -18,8 +18,12 @@ def parse_args():
     Parsuje argumenty wiersza poleceń
     '''
     parser = argparse.ArgumentParser(description="Przeszukaj PubMed i pobierz artykuły z danego roku")
-    parser.add_argument("--year", type=int, required=True, help="Rok opublikowania artykułów do pobrania")
-    parser.add_argument("--config", type=str, required=True, help="Ścieżka do pliku konfiguracyjnego YAML z danymi użytkownika")
+    parser.add_argument("--year", type=int, required=True)
+    parser.add_argument("--config", type=str, required=True)
+    parser.add_argument("--pubmed_data", type=str, required=True)
+    parser.add_argument("--summary_by_year", type=str, required=True)
+    parser.add_argument("--top_journals", type=str, required=True)
+    parser.add_argument("--summary_by_month", type=str, required=True)
     return parser.parse_args()
 
 def load_config(config_path):
@@ -202,6 +206,10 @@ def main():
     query = config['pubmed']['query']
     email = config['pubmed']['email']
     max_results = config['pubmed'].get('max_results', 500)
+    pubmed_data_path = Path(args.pubmed_data)
+    summary_by_year_path = Path(args.summary_by_year)
+    top_journals_path = Path(args.top_journals)
+    summary_by_month_path = Path(args.summary_by_month)
 
     # Pobieranie identyfikatorów artykułów z PubMed
     print(f"Pobieranie artykułów z PubMed dla roku {args.year} i zapytania '{query}'...")
@@ -214,30 +222,21 @@ def main():
 
 
     # Zapisywanie metadanych do pliku CSV
-    output_path = Path(f"results/literature/{args.year}/pubmed_data.csv")
-    if not output_path.exists():
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        print(f"Zapisywanie metadanych do pliku {output_path}...")
-        save_metadata_to_csv(metadata_df, output_path)
-        print("Gotowe!")
+    pubmed_data_path.parent.mkdir(parents=True, exist_ok=True)
+    print(f"Zapisywanie metadanych do pliku {pubmed_data_path}...")
+    save_metadata_to_csv(metadata_df, pubmed_data_path)
+    print("Gotowe!")
 
     # Agregacja i podsumowanie danych
     print("Tworzenie podsumowań...")
     summary_by_year, top_journals, summary_by_month = aggregation(metadata_df, args.year)
 
-    output_folder_path = Path(f"results/literature/{args.year}")
-    output_folder_path.mkdir(parents=True, exist_ok=True)
-    summary_by_year_path = output_folder_path / 'summary_by_year.csv'
-    top_journals_path = output_folder_path / 'top_journals.csv'
-    summary_by_month_path = output_folder_path / 'summary_by_month.csv'
-
-
     summary_by_year.to_csv(summary_by_year_path, index=False)
     print("Zapisano podsumowanie lat publikacji.")
-   
+    
     top_journals.to_csv(top_journals_path, index=False)
     print("Zapisano podsumowanie najpopularniejszych czasopism.")
-
+    
     summary_by_month.to_csv(summary_by_month_path, index=False)
     print("Zapisano podsumowanie miesięczne publikacji.")
 

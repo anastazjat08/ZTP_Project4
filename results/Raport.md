@@ -6,22 +6,22 @@
 
 | Województwa         |   Dni z przekroczeniem średniej normy w roku |
 |:--------------------|---------------------------------------------:|
-| DOLNOŚLĄSKIE        |                                          253 |
-| KUJAWSKO-POMORSKIE  |                                          219 |
+| DOLNOŚLĄSKIE        |                                          267 |
+| KUJAWSKO-POMORSKIE  |                                          223 |
 | LUBELSKIE           |                                          255 |
-| LUBUSKIE            |                                          191 |
-| MAZOWIECKIE         |                                          260 |
+| LUBUSKIE            |                                          199 |
+| MAZOWIECKIE         |                                          267 |
 | MAŁOPOLSKIE         |                                          272 |
-| OPOLSKIE            |                                          182 |
-| PODKARPACKIE        |                                          260 |
+| OPOLSKIE            |                                          204 |
+| PODKARPACKIE        |                                          262 |
 | PODLASKIE           |                                          192 |
-| POMORSKIE           |                                          186 |
-| WARMIŃSKO-MAZURSKIE |                                          152 |
-| WIELKOPOLSKIE       |                                          220 |
-| ZACHODNIOPOMORSKIE  |                                          142 |
+| POMORSKIE           |                                          200 |
+| WARMIŃSKO-MAZURSKIE |                                          179 |
+| WIELKOPOLSKIE       |                                          227 |
+| ZACHODNIOPOMORSKIE  |                                          145 |
 | ŁÓDZKIE             |                                          276 |
 | ŚLĄSKIE             |                                          302 |
-| ŚWIĘTOKRZYSKIE      |                                          222 |
+| ŚWIĘTOKRZYSKIE      |                                          276 |
 
 #### Dane PubMed
 
@@ -78,22 +78,22 @@ Przykładowe tytuły artykułów:
 
 | Województwa         |   Dni z przekroczeniem średniej normy w roku |
 |:--------------------|---------------------------------------------:|
-| DOLNOŚLĄSKIE        |                                          167 |
+| DOLNOŚLĄSKIE        |                                          197 |
 | KUJAWSKO-POMORSKIE  |                                          200 |
-| LUBELSKIE           |                                          184 |
-| LUBUSKIE            |                                          189 |
-| MAZOWIECKIE         |                                          210 |
+| LUBELSKIE           |                                          193 |
+| LUBUSKIE            |                                          192 |
+| MAZOWIECKIE         |                                          216 |
 | MAŁOPOLSKIE         |                                          196 |
 | OPOLSKIE            |                                          139 |
 | PODKARPACKIE        |                                          233 |
-| PODLASKIE           |                                          165 |
-| POMORSKIE           |                                          166 |
-| WARMIŃSKO-MAZURSKIE |                                          153 |
-| WIELKOPOLSKIE       |                                          180 |
-| ZACHODNIOPOMORSKIE  |                                          130 |
+| PODLASKIE           |                                          184 |
+| POMORSKIE           |                                          169 |
+| WARMIŃSKO-MAZURSKIE |                                          191 |
+| WIELKOPOLSKIE       |                                          197 |
+| ZACHODNIOPOMORSKIE  |                                          135 |
 | ŁÓDZKIE             |                                          236 |
-| ŚLĄSKIE             |                                          268 |
-| ŚWIĘTOKRZYSKIE      |                                          145 |
+| ŚLĄSKIE             |                                          269 |
+| ŚWIĘTOKRZYSKIE      |                                          200 |
 
 #### Dane PubMed
 

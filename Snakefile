@@ -13,11 +13,8 @@ rule all:
         expand(r"data\raw\pm25_data_{year}.pkl", year=YEARS),
         r"data\dictionaries.pkl",
         expand(r"data\clean\pm25_data_clean_{year}.pkl", year=YEARS),
-        r"data\pm25_data_merged.pkl",
-        r"data\common_stations.pkl",
-        expand(r"data\clean\pm25_data_common_{year}.pkl", year=YEARS),
         expand(r"results\pm25\{year}\month_means.csv", year=YEARS),
-        r"results\pm25\chosen_cities_month_means.csv",
+        expand(r"results\pm25\{year}\chosen_cities_month_means_{year}.csv", year=INTERESTED_YEARS),
         expand(r"results\pm25\{year}\exceedance_days.csv", year=YEARS), 
         expand(r"results\literature\{year}\pubmed_data.csv", year=YEARS),
         expand(r"results\literature\{year}\summary_by_year.csv", year=YEARS),
@@ -61,42 +58,13 @@ rule pm25_dictionaries:
 # 4. Czyszczenie danych PM2.5 dla każdego roku
 rule pm25_clean:
     input:
-        r"data\dictionaries.pkl",
-        r"data\raw\pm25_data_{year}.pkl"
+        dicts = r"data\dictionaries.pkl",
+        raw_data = r"data\raw\pm25_data_{year}.pkl"
     output:
         r"data\clean\pm25_data_clean_{year}.pkl"
     script:
         r"scripts\process_data\clean_data.py"
 
-# 5. Znalezienie wspólnych stacji pomiarowych we wszystkich latach
-rule pm25_find_common:
-    input:
-        expand(r"data\clean\pm25_data_clean_{year}.pkl", year=YEARS)
-    output:
-        r"data\common_stations.pkl"
-    script:
-        r"scripts\process_data\find_common_stations.py"
-
-# 6. Filtrowanie danych PM2.5 do wspólnych stacji pomiarowych
-rule pm25_filter_common:
-    input:
-        r"data\dictionaries.pkl",
-        r"data\common_stations.pkl",
-        r"data\clean\pm25_data_clean_{year}.pkl"
-    output:
-        r"data\clean\pm25_data_common_{year}.pkl"
-    script:
-        r"scripts\process_data\filter_common_stations.py"
-
-#   5. Scalanie danych PM2.5 ze wszystkich lat
-# rule pm25_merge:
-#     input:
-#         r"data\dictionaries.pkl",
-#         expand(r"data\clean\pm25_data_clean_{year}.pkl", year=YEARS)
-#     output:
-#         r"data\pm25_data_merged.pkl"
-#     script:
-#         r"scripts\merge_data.py"
 
 # -----------------------------
 # Wyliczenia
@@ -105,7 +73,7 @@ rule pm25_filter_common:
 # Liczenie średnich miesięcznych PM2.5 dla każdego miasta
 rule pm25_month_means:
     input:
-        r"data\clean\pm25_data_common_{year}.pkl"
+        r"data\clean\pm25_data_clean_{year}.pkl"
     output:
         r"results\pm25\{year}\month_means.csv"
     script:
@@ -114,18 +82,18 @@ rule pm25_month_means:
 # Wyciąganie średnich miesięcznych PM2.5 dla wybranych miast i lat
 rule pm25_means_for_chosen_cities:
     input:
-        expand(r"results\pm25\{year}\month_means.csv", year=INTERESTED_YEARS)
+        r"results\pm25\{year}\month_means.csv"
     output:
-        r"results\pm25\chosen_cities_month_means.csv"
+        r"results\pm25\{year}\chosen_cities_month_means_{year}.csv"
     params:
         cities = config["cities"]
     script:
         r"scripts\calculate\calculate_for_chosen_cities.py"
 
-# Liczenie dni z przekroczeniami PM2.5 dla każdego miasta, dla każdego roku
+# Liczenie dni z przekroczeniami PM2.5 dla każdego województwa, dla każdego roku
 rule pm25_exceedance_days:
     input:
-        r"data\clean\pm25_data_common_{year}.pkl"
+        r"data\clean\pm25_data_clean_{year}.pkl"
     output:
         r"results\pm25\{year}\exceedance_days.csv"
     script:
@@ -140,17 +108,21 @@ rule pubmed_download:
     input:
         config = r"config\task4.yaml"
     output:
-        r"results\literature\{year}\pubmed_data.csv",
-        r"results\literature\{year}\summary_by_year.csv",
-        r"results\literature\{year}\top_journals.csv",
-        r"results\literature\{year}\summary_by_month.csv"
+        pubmed_data = r"results\literature\{year}\pubmed_data.csv",
+        summary_by_year = r"results\literature\{year}\summary_by_year.csv",
+        top_journals = r"results\literature\{year}\top_journals.csv",
+        summary_by_month = r"results\literature\{year}\summary_by_month.csv"
     params:
         year = lambda wildcards: int(wildcards.year)
     shell:
         """
         python scripts\literature\pubmed_fetch.py \
             --year {params.year} \
-            --config {input.config}
+            --config {input.config} \
+            --pubmed_data {output.pubmed_data} \
+            --summary_by_year {output.summary_by_year} \
+            --top_journals {output.top_journals} \
+            --summary_by_month {output.summary_by_month}
         """
   
 #-----------------------------
