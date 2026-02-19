@@ -13,7 +13,7 @@ results/    - wyniki dla kalkulacji PM2.5 oraz przeszukiwania literatury PubMed
 ### Uruchomienie
 W terminalu:
 ```
-snakemake --j <liczba_wątków>
+snakemake --cores <liczba_wątków>
 ```
 
 ### Scenariusze uruchomienia
